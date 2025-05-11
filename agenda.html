@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ titulo }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+</head>
+<body>
+     <header>
+        <h1>Gerenciamento de Pacientes</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('agenda') }}">Agenda</a>
+            <a href="{{ url_for('cadastrar') }}">Cadastrar Pacientes</a>
+            <a href="{{ url_for('listagem') }}">Listagem Pacientes</a>
+            <a href="{{ url_for('saiba_mais') }}">Saiba Mais</a>
+            <a href="{{ url_for('contato') }}">Contato</a>
+
+
+        </nav>
+        <hr>
+    </header>
+
+     <div style="text-align: center;">
+        <a href="/" style="text-decoration: none;">
+            <button style="
+                padding: 15px;
+                background-color: #109010;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                margin: 20px 0;
+            ">
+                Voltar para Página Inicial
+            </button>
+        </a>
+    </div>
+
+    <div id="calendar"></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Local onde o calendário será renderizado na página
+        var calendarEl = document.getElementById('calendar');
+
+        // Configuração do FullCalendar
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth', // Exibição mensal do calendário
+            locale: 'pt-br', // Idioma do calendário: português
+            events: {{ eventos|tojson }}, // Carrega os eventos enviados pelo Flask
+            eventClick: function(info) {
+                // Função chamada ao clicar em um evento
+                alert('Cliente: ' + info.event.title + '\nData de Cadastro: ' + info.event.start.toLocaleDateString());
+            }
+        });
+
+        // Renderiza o calendário no elemento HTML
+        calendar.render();
+
+    });
+</script>
+
+</body>
+
+</html>
+
+
+<style>
+        /* Estilos definidos acima ficam aqui */
+        #calendar {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
+        }
+        .fc-toolbar-title {
+            color: #109010;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        .fc-button {
+            background-color: #109010;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        .fc-button:hover {
+            background-color: #0056b3;
+        }
+        .fc-daygrid-day {
+            background-color: #fff;
+        }
+        .fc-event {
+            background-color: #109010;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .fc-event:hover {
+            background-color: #218838;
+        }
+
+        header {
+            background-color:#109010;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+    </style>

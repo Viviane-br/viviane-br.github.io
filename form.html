@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block conteudo %}
+
+    <h3>Cadastrar Paciente</h3>
+
+    <form method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="{{ cliente.nome if cliente else '' }}" required><br>
+        <label for="idade">Idade:</label>
+        <input type="text" id="idade" name="idade" value="{{ cliente.idade if cliente else '' }}" required><br>
+        <label for="data_cadastro">Data do agendamento:</label>
+        <input type="date" id="data_cadastro" name="data_cadastro" value="{{ cliente.data_cadastro if cliente else '' }}" required><br><br>
+        <form action for="servico">Serviço:
+        <select type="text" id="servico" name="servico" multiple>
+            <option value="Atendimento médico">Atendimento médico</option>
+            <option value="Enfermagem domiciliar">Enfermagem domiciliar</option>
+            <option value="Fisioterapia">Fisioterapia</option>
+            <option value="Cuidados paliativos">Cuidados paliativos</option>
+        </select>
+        <br><br>
+        <button type="submit">Salvar</button>
+
+            </form>
+        <br><br>
+         <a href="{{ request.referrer or url_for('index') }}" class="back-link" title="Voltar para página anterior" style="text-decoration: none">⬅️ Voltar</a>
+    </form>
+
+{% endblock %}
+
